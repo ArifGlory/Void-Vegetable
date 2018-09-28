@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Void</string>
+    <string name="title_activity_beranda">BerandaActivity</string>
+    <string name="user_profile_photo">https://res.cloudinary.com/tapisdev/image/upload/v1531442590/badgeSkyAngel.png</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_psayur">PSayurActivity</string>
+
+    <string-array name="listKategori">
+        <item>Tomat</item>
+        <item>Bayam</item>
+        <item>Kangkung</item>
+        <item>Kentang</item>
+        <item>Bawang Merah</item>
+        <item>Bawang Putih</item>
+    </string-array>
+    <string name="title_activity_maps">Map</string>
+    <string name="bagian">pembeli</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_penjual_sayur">PenjualSayurActivity</string>
+</resources>

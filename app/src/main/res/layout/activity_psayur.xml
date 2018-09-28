@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#E0E0E0"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/view_feed_toolbar" />
+        </android.support.design.widget.AppBarLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/appBarLayout">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aktifkan Mode Berjualan"
+                android:layout_centerHorizontal="true"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:id="@+id/txtJudul"
+                android:layout_marginTop="20dp"
+                />
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/icon_tiger"
+                android:id="@+id/logo"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/txtJudul"
+                android:layout_centerHorizontal="true"
+                />
+
+
+            <TextView
+                android:id="@+id/txtNamaPSayur"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nama PSayur"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/logo"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/primary_text_default_material_light"
+                android:textSize="18sp" />
+
+
+            <ToggleButton
+                android:id="@+id/toggleButton1"
+                android:layout_above="@+id/txtNotif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/toggle_selector"
+                android:checked="false"
+                android:text=""
+                android:textOff=""
+                android:textOn="" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status :  Tidak Aktif"
+                android:layout_centerHorizontal="true"
+                android:textSize="20sp"
+                android:textStyle="italic"
+                android:visibility="visible"
+                android:id="@+id/txtNotif"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="5dp"
+                />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center|bottom"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="20dp"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+
+    </ScrollView>

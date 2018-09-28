@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/menu_group_1">
+        <item
+            android:id="@+id/menu_listSayur"
+            android:icon="@drawable/carrot"
+            android:title="List Sayur" />
+
+    </group>
+    <group android:id="@+id/menu_group_2">
+        <item
+            android:id="@+id/menu_logout"
+            android:title="Logout" />
+    </group>
+</menu>
