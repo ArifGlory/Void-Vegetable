@@ -85,11 +85,15 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
                     String harga = child.child("harga").getValue().toString();
                     String downloadURL = child.child("downloadUrl").getValue().toString();
 
-                    list_status.add(statusSayur);
-                    list_nama.add(namaSayur);
-                    list_key.add(key);
-                    list_downloadURL.add(downloadURL);
-                    list_harga.add(harga);
+                    if (statusSayur.equals("on")){
+                        list_status.add(statusSayur);
+                        list_nama.add(namaSayur);
+                        list_key.add(key);
+                        list_downloadURL.add(downloadURL);
+                        list_harga.add(harga);
+                    }
+
+
                 }
                 ListSayurPembeli.progressBar.setVisibility(View.GONE);
             }

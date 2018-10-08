@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.firebase.client.Firebase;
 import com.google.firebase.FirebaseApp;
@@ -37,7 +38,8 @@ public class ListSayurPembeli extends AppCompatActivity {
     private FirebaseAuth fAuth;
     private FirebaseAuth.AuthStateListener fStateListener;
     Intent i;
-    public static String keyPSayur;
+    public static String keyPSayur,namaPsayur;
+    TextView txtNamaPSayur;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +49,7 @@ public class ListSayurPembeli extends AppCompatActivity {
 
         i = getIntent();
         keyPSayur = i.getStringExtra("key");
+        namaPsayur = i.getStringExtra("nama");
 
         Firebase.setAndroidContext(this);
         FirebaseApp.initializeApp(ListSayurPembeli.this);
@@ -54,6 +57,8 @@ public class ListSayurPembeli extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        txtNamaPSayur = (TextView) findViewById(R.id.txtNamaPSayur);
+        txtNamaPSayur.setText("Penjual : "+namaPsayur);
 
         adapter = new AlbumsAdapter(this);
 

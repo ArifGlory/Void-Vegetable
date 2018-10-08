@@ -238,6 +238,7 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback, Locati
                Toast.makeText(getActivity(),"index : "+markerIndex+ "| Key : ",Toast.LENGTH_SHORT).show();
                i = new Intent(getActivity(), ListSayurPembeli.class);
                i.putExtra("key",listKey.get(indexPSayur).toString());
+               i.putExtra("nama",marker.getTitle().toString());
                startActivity(i);
 
            }

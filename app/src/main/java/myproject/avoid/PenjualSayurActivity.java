@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.firebase.client.Firebase;
 import com.google.firebase.FirebaseApp;
@@ -24,6 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import Kelas.SharedVariable;
 import Kelas.UserPreference;
 
 public class PenjualSayurActivity extends AppCompatActivity
@@ -61,6 +63,9 @@ public class PenjualSayurActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View headerView = navigationView.getHeaderView(0);
+        TextView txtNamaProfil = (TextView) headerView.findViewById(R.id.txtNama);
+        txtNamaProfil.setText(SharedVariable.nama);
 
         fragmentPenjual = new FragmentPenjual();
         goToFragment(fragmentPenjual,true);

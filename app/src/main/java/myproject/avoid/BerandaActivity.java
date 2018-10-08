@@ -66,13 +66,14 @@ public class BerandaActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         View headerView = navigationView.getHeaderView(0);
         TextView txtNamaProfil = (TextView) headerView.findViewById(R.id.txtNama);
-
+        txtNamaProfil.setText(SharedVariable.nama);
+        /*
         if (SharedVariable.check.equals("1")){
-            txtNamaProfil.setText(SharedVariable.nama);
+
         }else {
             i = new Intent(getApplicationContext(), SplashActivity.class);
             startActivity(i);
-        }
+        }*/
 
         fragmentMaps = new FragmentMaps();
         goToFragment(fragmentMaps,true);

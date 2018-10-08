@@ -48,14 +48,15 @@
                         android:id="@+id/love_music"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="List Sayur"
+                        android:text="Sayur Hari ini"
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/backdrop_title" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Dapatkan Sayur segar setiap hari"
+                        android:text="Penjual : "
+                        android:id="@+id/txtNamaPSayur"
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/backdrop_subtitle" />
 
