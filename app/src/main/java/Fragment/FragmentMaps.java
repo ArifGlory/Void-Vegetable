@@ -54,6 +54,7 @@ import java.util.List;
 import Module.DirectionKobal;
 import Module.DirectionKobalListener;
 import Module.Route;
+import myproject.avoid.ListSayurPembeli;
 import myproject.avoid.R;
 
 
@@ -232,8 +233,12 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback, Locati
                marker_ghost = marker;
                String idmarker = marker.getId();
                String markerIndex = idmarker.substring(idmarker.indexOf("m")+1);
+               int indexPSayur = Integer.parseInt(markerIndex);
 
                Toast.makeText(getActivity(),"index : "+markerIndex+ "| Key : ",Toast.LENGTH_SHORT).show();
+               i = new Intent(getActivity(), ListSayurPembeli.class);
+               i.putExtra("key",listKey.get(indexPSayur).toString());
+               startActivity(i);
 
            }
        });
