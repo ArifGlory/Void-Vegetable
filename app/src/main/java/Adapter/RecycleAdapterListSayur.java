@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Kelas.SharedVariable;
+import myproject.avoid.DetailSayurActivity;
 import myproject.avoid.ListSayurActivity;
 import myproject.avoid.R;
 
@@ -43,6 +44,7 @@ public class RecycleAdapterListSayur extends RecyclerView.Adapter<RecycleViewHol
     public static List<String> list_status = new ArrayList();
     public static List<String> list_harga = new ArrayList();
     public static List<String> list_key = new ArrayList();
+    public static List<String> list_jml = new ArrayList();
     public static List<String> list_downloadURL = new ArrayList();
     String key = "";
     Firebase Vref,refLagi;
@@ -72,6 +74,7 @@ public class RecycleAdapterListSayur extends RecyclerView.Adapter<RecycleViewHol
                 list_nama.clear();
                 list_key.clear();
                 list_status.clear();
+                list_jml.clear();
 
                 ListSayurActivity.progressBar.setVisibility(View.VISIBLE);
                 for (DataSnapshot child : dataSnapshot.getChildren()){
@@ -80,12 +83,14 @@ public class RecycleAdapterListSayur extends RecyclerView.Adapter<RecycleViewHol
                     String statusSayur = child.child("statusSayur").getValue().toString();
                     String harga = child.child("harga").getValue().toString();
                     String downloadURL = child.child("downloadUrl").getValue().toString();
+                    String jml = (String) child.child("jumlahSayur").getValue();
 
                     list_status.add(statusSayur);
                     list_nama.add(namaSayur);
                     list_key.add(key);
                     list_downloadURL.add(downloadURL);
                     list_harga.add(harga);
+                    list_jml.add(jml);
                 }
                 ListSayurActivity.progressBar.setVisibility(View.GONE);
             }
@@ -121,6 +126,8 @@ public class RecycleAdapterListSayur extends RecyclerView.Adapter<RecycleViewHol
         //holder.contentWithBackground.setGravity(Gravity.LEFT);
        holder.txtNamaSayur.setText(list_nama.get(position).toString());
        holder.txtHarga.setText("Rp. "+list_harga.get(position).toString());
+        holder.txtJml.setText(list_jml.get(position).toString()+" Unit");
+
         statusSayur = list_status.get(position).toString();
         if (statusSayur.equals("off")){
             holder.toogleSayur.setChecked(false);
@@ -167,6 +174,13 @@ public class RecycleAdapterListSayur extends RecyclerView.Adapter<RecycleViewHol
             RecycleViewHolderListSayur vHolder = (RecycleViewHolderListSayur) v.getTag();
             int position = vHolder.getPosition();
            // Toast.makeText(context.getApplicationContext(), "Item diklik", Toast.LENGTH_SHORT).show();
+            i = new Intent(context.getApplicationContext(), DetailSayurActivity.class);
+            i.putExtra("nama",list_nama.get(position).toString());
+            i.putExtra("harga",list_harga.get(position).toString());
+            i.putExtra("url",list_downloadURL.get(position).toString());
+            i.putExtra("key",list_key.get(position).toString());
+            i.putExtra("jumlah",list_jml.get(position).toString());
+            context.startActivity(i);
 
         }
     };

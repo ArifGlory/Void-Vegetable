@@ -2,7 +2,10 @@ package myproject.avoid;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -199,5 +202,31 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Apakan anda ingin keluar dari aplikasi ?");
+        builder.setCancelable(false);
+
+        listener = new DialogInterface.OnClickListener()
+        {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(which == DialogInterface.BUTTON_POSITIVE){
+                    finishAffinity();
+                    System.exit(0);
+                }
+
+                if(which == DialogInterface.BUTTON_NEGATIVE){
+                    dialog.cancel();
+                }
+            }
+        };
+        builder.setPositiveButton("Ya",listener);
+        builder.setNegativeButton("Tidak", listener);
+        builder.show();
     }
 }

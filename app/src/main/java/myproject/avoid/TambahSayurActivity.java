@@ -44,7 +44,7 @@ import Kelas.SharedVariable;
 public class TambahSayurActivity extends AppCompatActivity {
 
     ImageView imgBrowse;
-    EditText etNama,etHarga;
+    EditText etNama,etHarga,etJumlah;
     Button btnUpload;
     public static ProgressBar progressBar;
     DatabaseReference ref;
@@ -72,6 +72,7 @@ public class TambahSayurActivity extends AppCompatActivity {
         etNama = (EditText) findViewById(R.id.userEmailId);
         etHarga = (EditText) findViewById(R.id.etHargaSayur);
         btnUpload = (Button) findViewById(R.id.signUpBtn);
+        etJumlah = (EditText) findViewById(R.id.etJumlahSayur);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         imgBrowse.setOnClickListener(new View.OnClickListener() {
@@ -109,6 +110,7 @@ public class TambahSayurActivity extends AppCompatActivity {
         etHarga.setEnabled(false);
         etNama.setEnabled(false);
         imgBrowse.setEnabled(false);
+        etJumlah.setEnabled(false);
     }
 
     private void hidupkanKomponen(){
@@ -116,17 +118,21 @@ public class TambahSayurActivity extends AppCompatActivity {
         etHarga.setEnabled(true);
         etNama.setEnabled(true);
         imgBrowse.setEnabled(true);
+        etJumlah.setEnabled(true);
     }
 
     private void checkValidation(){
         String getNama = etNama.getText().toString();
         String getHarga = etHarga.getText().toString();
+        String getJumlah = etJumlah.getText().toString();
         matikanKomponen();
 
         if (getNama.equals("") || getNama.length() == 0
-                || getHarga.equals("") || getHarga.length() == 0) {
+                || getHarga.equals("") || getHarga.length() == 0
+                || getJumlah.equals("") || getJumlah.length() == 0
+                ) {
 
-            customToast("Harga dan Nama Sayur harus diisi");
+            customToast("Semua Field harus diiisi harus diisi");
             hidupkanKomponen();
         }else if (uri == null){
             customToast("Pilih gambar Sayur dahulu");
@@ -214,16 +220,20 @@ public class TambahSayurActivity extends AppCompatActivity {
                 Toast.makeText(TambahSayurActivity.this, "Upload finished!", Toast.LENGTH_SHORT).show();
                 progressBar.setVisibility(View.GONE);
                 // save image to database
+
+
                 String key = ref.child("psayur").child(SharedVariable.userID).child("sayurList").push().getKey();
                 Sayur sayur = new Sayur(etNama.getText().toString(),
                         etHarga.getText().toString(),
                         key,
                         downloadUrl.toString(),
-                        "off");
+                        "off",
+                        etJumlah.getText().toString());
                 ref.child("psayur").child(SharedVariable.userID).child("sayurList").child(key).setValue(sayur);
 
                 etHarga.setText("");
                 etNama.setText("");
+                etJumlah.setText("");
                 imgBrowse.setImageResource(R.drawable.ic_browse);
             }
         });

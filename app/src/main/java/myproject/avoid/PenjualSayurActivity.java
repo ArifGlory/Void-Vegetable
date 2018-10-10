@@ -1,12 +1,16 @@
 package myproject.avoid;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -39,6 +43,7 @@ public class PenjualSayurActivity extends AppCompatActivity
     FirebaseUser fbUser;
     UserPreference mUserpref;
     Intent i;
+    DialogInterface.OnClickListener listener;
 
 
     @Override
@@ -83,12 +88,28 @@ public class PenjualSayurActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Apakan anda ingin keluar dari aplikasi ?");
+        builder.setCancelable(false);
+
+        listener = new DialogInterface.OnClickListener()
+        {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(which == DialogInterface.BUTTON_POSITIVE){
+                    finishAffinity();
+                    System.exit(0);
+                }
+
+                if(which == DialogInterface.BUTTON_NEGATIVE){
+                    dialog.cancel();
+                }
+            }
+        };
+        builder.setPositiveButton("Ya",listener);
+        builder.setNegativeButton("Tidak", listener);
+        builder.show();
     }
 
     @Override

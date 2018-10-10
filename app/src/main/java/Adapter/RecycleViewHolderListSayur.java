@@ -15,7 +15,7 @@ import myproject.avoid.R;
  */
 public class RecycleViewHolderListSayur extends RecyclerView.ViewHolder {
 
-    public TextView txtNamaSayur,txtHarga;
+    public TextView txtNamaSayur,txtHarga,txtJml;
     public ImageView img_iconlistMotor;
     public CardView cardlist_item;
     public RelativeLayout relaList;
@@ -26,6 +26,7 @@ public class RecycleViewHolderListSayur extends RecyclerView.ViewHolder {
 
         txtNamaSayur = (TextView) itemView.findViewById(R.id.txt_namaMotor);
         txtHarga = (TextView) itemView.findViewById(R.id.txt_platNomor);
+        txtJml = (TextView) itemView.findViewById(R.id.txtJml);
         img_iconlistMotor = (ImageView) itemView.findViewById(R.id.img_iconlistMotor);
         cardlist_item = (CardView) itemView.findViewById(R.id.cardlist_item);
         relaList = (RelativeLayout) itemView.findViewById(R.id.relaList);

@@ -77,9 +77,12 @@
             android:name=".PenjualSayurActivity"
             android:label="V.O.I.D | Penjual"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ListSayurPembeli"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="Vegetable Online"></activity>
+        <activity
+            android:name=".ListSayurPembeli"
+            android:label="Vegetable Online"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".DetailSayurActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

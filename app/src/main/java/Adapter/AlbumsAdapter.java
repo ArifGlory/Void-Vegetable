@@ -45,16 +45,18 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
     public static List<String> list_status = new ArrayList();
     public static List<String> list_harga = new ArrayList();
     public static List<String> list_key = new ArrayList();
+    public static List<String> list_jml = new ArrayList();
     public static List<String> list_downloadURL = new ArrayList();
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, count;
+        public TextView title, count,jmlSayur;
         public ImageView thumbnail, overflow;
 
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
             count = (TextView) view.findViewById(R.id.count);
+            jmlSayur = (TextView) view.findViewById(R.id.jmlSayur);
             thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
         }
     }
@@ -76,6 +78,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
                 list_nama.clear();
                 list_key.clear();
                 list_status.clear();
+                list_jml.clear();
 
                 ListSayurPembeli.progressBar.setVisibility(View.VISIBLE);
                 for (DataSnapshot child : dataSnapshot.getChildren()){
@@ -84,6 +87,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
                     String statusSayur = child.child("statusSayur").getValue().toString();
                     String harga = child.child("harga").getValue().toString();
                     String downloadURL = child.child("downloadUrl").getValue().toString();
+                    String jml = (String) child.child("jumlahSayur").getValue();
 
                     if (statusSayur.equals("on")){
                         list_status.add(statusSayur);
@@ -91,6 +95,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
                         list_key.add(key);
                         list_downloadURL.add(downloadURL);
                         list_harga.add(harga);
+                        list_jml.add(jml);
                     }
 
 
@@ -120,6 +125,8 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
 
         holder.title.setText(list_nama.get(position).toString());
         holder.count.setText("Rp. "+list_harga.get(position).toString());
+        holder.jmlSayur.setText("Jumlah : "+list_jml.get(position).toString()+" Unit");
+
 
         // loading album cover using Glide library
         Glide.with(mContext).load(list_downloadURL.get(position).toString())

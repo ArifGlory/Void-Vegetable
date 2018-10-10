@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     android:background="@color/background_color">
     <RelativeLayout
@@ -15,14 +16,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="20dp"
-            tools:context="glory.a2lol.DaftarActivity">
+            android:id="@+id/lineDetail">
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="Tambah Sayur"
+                android:text="Detail Sayur"
                 android:textColor="@color/white_greyish"
                 android:textSize="25sp"
                 android:textStyle="bold" />
@@ -110,7 +111,7 @@
                 android:layout_marginTop="15dp"
                 android:background="@drawable/loginbutton_selector"
                 android:padding="3dp"
-                android:text="SIMPAn"
+                android:text="...."
                 android:textColor="@color/background_color"
                 android:textSize="17sp"
                 android:textStyle="bold" />
@@ -123,6 +124,49 @@
             android:layout_centerInParent="true"
             android:layout_marginBottom="20dp"
             android:visibility="gone" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabSetting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:elevation="6dp"
+            app:backgroundTint="@color/colorAccent"
+            app:pressedTranslationZ="12dp"
+            android:layout_below="@+id/lineDetail"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/ic_settings_white_24dp"
+            />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:elevation="6dp"
+            app:backgroundTint="@color/colorlight2"
+            app:pressedTranslationZ="12dp"
+            android:layout_above="@+id/fabSetting"
+            android:visibility="invisible"
+            android:layout_marginBottom="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/ic_mode_edit_white_24dp"
+            />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:elevation="6dp"
+            android:visibility="invisible"
+            app:backgroundTint="@color/btn_context_menu_text_red"
+            app:pressedTranslationZ="12dp"
+            android:layout_above="@+id/fabEdit"
+            android:layout_marginBottom="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/delete"
+            />
 
     </RelativeLayout>
 </ScrollView>

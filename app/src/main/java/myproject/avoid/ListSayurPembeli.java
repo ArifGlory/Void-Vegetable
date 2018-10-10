@@ -38,8 +38,8 @@ public class ListSayurPembeli extends AppCompatActivity {
     private FirebaseAuth fAuth;
     private FirebaseAuth.AuthStateListener fStateListener;
     Intent i;
-    public static String keyPSayur,namaPsayur;
-    TextView txtNamaPSayur;
+    public static String keyPSayur,namaPsayur,phone;
+    TextView txtNamaPSayur,txtPhone;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +50,7 @@ public class ListSayurPembeli extends AppCompatActivity {
         i = getIntent();
         keyPSayur = i.getStringExtra("key");
         namaPsayur = i.getStringExtra("nama");
+        phone = i.getStringExtra("phone");
 
         Firebase.setAndroidContext(this);
         FirebaseApp.initializeApp(ListSayurPembeli.this);
@@ -58,7 +59,9 @@ public class ListSayurPembeli extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         txtNamaPSayur = (TextView) findViewById(R.id.txtNamaPSayur);
+        txtPhone = (TextView) findViewById(R.id.txtPhone);
         txtNamaPSayur.setText("Penjual : "+namaPsayur);
+        txtPhone.setText("No. HP : "+phone);
 
         adapter = new AlbumsAdapter(this);
 

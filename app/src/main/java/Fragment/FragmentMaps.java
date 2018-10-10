@@ -96,6 +96,7 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback, Locati
     private List<Marker> destinationMarkers = new ArrayList<>();
     private List<Polyline> polylinePaths = new ArrayList<>();
     private List<String> listKey = new ArrayList<>();
+    private List<String> listPhone = new ArrayList<>();
     private List<Double> list_jarak = new ArrayList<>();
     private List<LatLng> list_LatLng = new ArrayList<>();
     private Double lat,lon, userLon,userLat;
@@ -235,10 +236,11 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback, Locati
                String markerIndex = idmarker.substring(idmarker.indexOf("m")+1);
                int indexPSayur = Integer.parseInt(markerIndex);
 
-               Toast.makeText(getActivity(),"index : "+markerIndex+ "| Key : ",Toast.LENGTH_SHORT).show();
+              // Toast.makeText(getActivity(),"index : "+markerIndex+ "| Key : ",Toast.LENGTH_SHORT).show();
                i = new Intent(getActivity(), ListSayurPembeli.class);
                i.putExtra("key",listKey.get(indexPSayur).toString());
                i.putExtra("nama",marker.getTitle().toString());
+               i.putExtra("phone",listPhone.get(indexPSayur).toString());
                startActivity(i);
 
            }
@@ -260,6 +262,7 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback, Locati
                     int c = 0;
                     for (DataSnapshot child : dataSnapshot.getChildren()){
                         String nama = (String) child.child("displayName").getValue();
+                        String phone = (String) child.child("phone").getValue();
                         String latlon = (String) child.child("latlon").getValue();
                         String status = (String) child.child("status").getValue();
                         String sublon = latlon.substring(latlon.indexOf(",")+1);
@@ -275,6 +278,7 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback, Locati
                         if (status.equals("on")){
                             list_LatLng.add(posisiSayur);
                             listKey.add(key);
+                            listPhone.add(phone);
 
                             mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(iconMarker))
                                     .position(posisiSayur)
