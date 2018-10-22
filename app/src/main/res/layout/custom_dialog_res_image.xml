@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/header_cover_image"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/icon_utama" />
+
+
+
+        <RelativeLayout
+            android:id="@+id/profile_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/header_cover_image"
+            android:background="@color/colorPrimary"
+            android:elevation="4dp"
+            android:paddingBottom="24dp">
+
+                 />
+
+            <Button
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                style="@style/buttonGame"
+                android:layout_marginTop="15dp"
+                android:text="Kamera"
+                android:textSize="19sp"
+                android:layout_below="@+id/txt_dialogTag"
+                android:layout_centerHorizontal="true"
+                android:padding="5dp"
+                android:layout_weight="0.3"
+                android:layout_marginRight="15dp"
+                android:id="@+id/btnDialogKamera"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/buttonGame"
+                android:layout_marginTop="15dp"
+                android:text="Galery"
+                android:textSize="19sp"
+                android:layout_below="@+id/btnDialogKamera"
+                android:layout_centerHorizontal="true"
+                android:padding="5dp"
+                android:layout_weight="0.3"
+                android:layout_marginRight="15dp"
+                android:id="@+id/btnDialogGalery"/>
+
+            <TextView
+                android:id="@+id/txt_dialogTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:padding="10dp"
+                android:gravity="center"
+                android:text="Pilih cara mengambil Gambar"
+                android:textColor="#fff"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</ScrollView>

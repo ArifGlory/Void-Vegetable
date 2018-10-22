@@ -1,10 +1,14 @@
 package myproject.avoid;
 
+import android.*;
+import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -35,6 +39,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import android.net.Uri;
+
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -54,7 +60,8 @@ public class TambahSayurActivity extends AppCompatActivity {
     static final int RC_PERMISSION_READ_EXTERNAL_STORAGE = 1;
     static final int RC_IMAGE_GALLERY = 2;
     FirebaseUser fbUser;
-    Uri uri;
+    DialogInterface.OnClickListener listener;
+    Uri uri,file;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,24 +85,10 @@ public class TambahSayurActivity extends AppCompatActivity {
         imgBrowse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-              /*  if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, RC_PERMISSION_READ_EXTERNAL_STORAGE);
-                } else {*/
-                // Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                //intent.setType("image/*");
-                //startActivityForResult(intent, RC_IMAGE_GALLERY);
-                // }
-
-                if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(TambahSayurActivity.this, new String[] {android.Manifest.permission.READ_EXTERNAL_STORAGE}, RC_PERMISSION_READ_EXTERNAL_STORAGE);
-                } else {
-                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                    intent.setType("image/*");
-                    startActivityForResult(intent, RC_IMAGE_GALLERY);
-                }
+                    showDialogResImage();
             }
         });
+
 
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +96,63 @@ public class TambahSayurActivity extends AppCompatActivity {
                 checkValidation();
             }
         });
+    }
+
+    private void showDialogResImage(){
+        LayoutInflater minlfater = LayoutInflater.from(this);
+        View v = minlfater.inflate(R.layout.custom_dialog_res_image, null);
+        final android.app.AlertDialog dialog = new android.app.AlertDialog.Builder(this).create();
+        dialog.setView(v);
+
+        final Button btnDialogKamera = (Button) v.findViewById(R.id.btnDialogKamera);
+        final Button btnDialogGalery = (Button) v.findViewById(R.id.btnDialogGalery);
+
+        btnDialogKamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(TambahSayurActivity.this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+                } else {
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    file = Uri.fromFile(getOutputMediaFile());
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, file);
+
+                    startActivityForResult(intent, 100);
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        btnDialogGalery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(TambahSayurActivity.this, new String[] {android.Manifest.permission.READ_EXTERNAL_STORAGE}, RC_PERMISSION_READ_EXTERNAL_STORAGE);
+                } else {
+                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                    intent.setType("image/*");
+                    startActivityForResult(intent, RC_IMAGE_GALLERY);
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        dialog.show();
+    }
+
+    private static File getOutputMediaFile(){
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), "CameraVegetable");
+
+        if (!mediaStorageDir.exists()){
+            if (!mediaStorageDir.mkdirs()){
+                return null;
+            }
+        }
+
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        return new File(mediaStorageDir.getPath() + File.separator +
+                "IMG_"+ timeStamp + ".jpg");
     }
 
     private void matikanKomponen(){
@@ -192,7 +242,15 @@ public class TambahSayurActivity extends AppCompatActivity {
 
             imgBrowse.setImageURI(uri);
         }
+        else if (requestCode == 100 && resultCode == RESULT_OK){
+            uri = file;
+            imgBrowse.setImageURI(uri);
+        }
+
+
     }
+
+
 
     private void uploadGambar(final Uri uri){
 
