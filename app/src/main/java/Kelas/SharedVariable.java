@@ -21,4 +21,5 @@ public class SharedVariable {
     public static String jarakKeMotor = "";
     public static String check = "0";
     public static String statusPSayur = "off";
+    public static String idPenjualAktifCart = "off";
 }

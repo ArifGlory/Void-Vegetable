@@ -11,6 +11,10 @@
             android:icon="@drawable/carrot"
             android:title="Data Sayur" />
         <item
+            android:id="@+id/nav_pesanan"
+            android:icon="@drawable/pesanan"
+            android:title="Pesanan" />
+        <item
             android:id="@+id/nav_logoutSayur"
             android:title="Logout" />
     </group>

@@ -16,7 +16,7 @@
     <color name="cyan">#009688</color>
     <color name="kuningGelap">#7CB342</color>
     <color name="unguMuda">#BA68C8</color>
-
+    <color name="black">#000000</color>
     <color name="btn_default_light_normal">#00000000</color>
     <color name="btn_default_light_pressed">#40ffffff</color>
 

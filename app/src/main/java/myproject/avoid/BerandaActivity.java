@@ -30,6 +30,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import Fragment.FragmentMaps;
+import Kelas.Keranjang;
 import Kelas.SharedVariable;
 import Kelas.UserPreference;
 
@@ -153,6 +154,12 @@ public class BerandaActivity extends AppCompatActivity
             fAuth.signOut();
             mUserpref.setBagian("none");
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(i);
+        }else if (id ==R.id.nav_keranjang){
+            Intent i = new Intent(getApplicationContext(), KeranjangActivity.class);
+            startActivity(i);
+        }else if (id ==R.id.nav_histoy){
+            Intent i = new Intent(getApplicationContext(), HistoryPesananActivity.class);
             startActivity(i);
         }
 

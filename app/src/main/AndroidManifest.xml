@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CAMERA"></uses-permission>
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -82,8 +82,25 @@
             android:name=".ListSayurPembeli"
             android:label="Vegetable Online"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".DetailSayurActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".DetailSayurActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PesananActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ListPesananPenjual"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DetailPesananActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DetailOrderActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".KeranjangActivity"
+            android:label="Keranjang"/>
+        <activity android:name=".HistoryPesananActivity"
+            android:label="Riwayat Pesanan"></activity>
     </application>
 
 </manifest>

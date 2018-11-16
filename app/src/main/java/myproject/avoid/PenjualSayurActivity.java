@@ -311,6 +311,9 @@ public class PenjualSayurActivity extends AppCompatActivity
             mUserpref.setBagian("none");
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
+        }else if (id == R.id.nav_pesanan){
+            Intent i = new Intent(getApplicationContext(), ListPesananPenjual.class);
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

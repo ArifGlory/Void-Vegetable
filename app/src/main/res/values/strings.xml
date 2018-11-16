@@ -18,6 +18,12 @@
     </string-array>
     <string name="title_activity_maps">Map</string>
     <string name="bagian">pembeli</string>
+    <string-array name="filterPesanan">
+        <item>Pesanan Hari ini</item>
+        <item>Pesanan belum diverifikasi</item>
+        <item>Pesanan Dikirim</item>
+        <item>Pesanan Ditolak</item>
+    </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

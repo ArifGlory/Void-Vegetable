@@ -6,6 +6,16 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home"
             android:title="Home" />
+
+        <item
+            android:id="@+id/nav_keranjang"
+            android:icon="@drawable/shoppingcart"
+            android:title="Keranjang" />
+
+        <item
+            android:id="@+id/nav_histoy"
+            android:icon="@drawable/history"
+            android:title="Riwayat Pesanan" />
         <item
             android:id="@+id/nav_logout"
             android:title="Logout" />

@@ -1,13 +1,17 @@
 package Adapter;
 
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,10 +30,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Kelas.Album;
+import Kelas.Keranjang;
 import Kelas.SharedVariable;
+import myproject.avoid.FragmentKeranjang;
 import myproject.avoid.ListSayurActivity;
 import myproject.avoid.ListSayurPembeli;
+import myproject.avoid.PesananActivity;
 import myproject.avoid.R;
+import myproject.avoid.TambahSayurActivity;
 
 /**
  * Created by Ravi Tamada on 18/05/16.
@@ -132,8 +140,63 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
         Glide.with(mContext).load(list_downloadURL.get(position).toString())
                 .into(holder.thumbnail);
 
+        holder.title.setTag(holder);
+        holder.count.setTag(holder);
+        holder.jmlSayur.setTag(holder);
+
+        holder.title.setOnClickListener(clickListener);
+        holder.count.setOnClickListener(clickListener);
+        holder.jmlSayur.setOnClickListener(clickListener);
 
     }
+
+    View.OnClickListener clickListener = new View.OnClickListener(){
+
+        @Override
+        public void onClick(View view) {
+            MyViewHolder viewHolder = (MyViewHolder) view.getTag();
+            final int position = viewHolder.getPosition();
+
+            LayoutInflater layoutInflater = LayoutInflater.from(mContext);
+            View promptView = layoutInflater.inflate(R.layout.input_dialog, null);
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mContext);
+            alertDialogBuilder.setView(promptView);
+
+            final EditText editText = (EditText) promptView.findViewById(R.id.edittext);
+            alertDialogBuilder.setCancelable(false).setPositiveButton("Pesan", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                    if (SharedVariable.idPenjualAktifCart.equals("off")
+                            || SharedVariable.idPenjualAktifCart.equals(ListSayurPembeli.keyPSayur)){
+                        Keranjang keranjang = new Keranjang(fAuth.getCurrentUser().getUid(),
+                                ListSayurPembeli.keyPSayur,
+                                list_key.get(position).toString(),
+                                editText.getText().toString());
+                        String key = ref.child("keranjang").push().getKey();
+                        ref.child("keranjang").child(key).setValue(keranjang);
+                        FragmentKeranjang.status = "1";
+                        SharedVariable.idPenjualAktifCart = ListSayurPembeli.keyPSayur;
+                        Toast.makeText(mContext.getApplicationContext(), "Berhasil masuk ke keranjang", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(mContext.getApplicationContext(), "Tidak bisa melakukan pembelian, mohon selesaikan pembelian anda pada penjual sebelumnya", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }
+            }).setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.cancel();
+                }
+            });
+
+            AlertDialog alert = alertDialogBuilder.create();
+            alert.show();
+
+
+        }
+    };
 
 
     /**
