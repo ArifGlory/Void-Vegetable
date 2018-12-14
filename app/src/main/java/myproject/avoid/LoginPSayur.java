@@ -171,6 +171,7 @@ public class LoginPSayur extends AppCompatActivity {
                     // Successfully signed in
                     SharedVariable.nama = fAuth.getCurrentUser().getDisplayName();
                     SharedVariable.userID = fAuth.getCurrentUser().getUid();
+                    SharedVariable.email = email;
                     // get the Firebase user
                     FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
 

@@ -113,11 +113,13 @@ public class SplashActivity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         String cek = (String) dataSnapshot.child("check").getValue();
                         String status = (String) dataSnapshot.child("status").getValue();
+                        String foto = (String) dataSnapshot.child("foto").getValue();
 
                         Log.d("cek:",cek);
                         SharedVariable.check = cek;
                         SharedVariable.statusPSayur = status;
                         SharedVariable.userID = fAuth.getCurrentUser().getUid();
+                        SharedVariable.fotoPsayur = foto;
                     }
 
                     @Override

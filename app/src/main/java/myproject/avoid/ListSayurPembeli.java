@@ -3,8 +3,10 @@ package myproject.avoid;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -40,6 +42,8 @@ public class ListSayurPembeli extends AppCompatActivity {
     Intent i;
     public static String keyPSayur,namaPsayur,phone;
     TextView txtNamaPSayur,txtPhone;
+    FloatingActionButton btnCall;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +64,7 @@ public class ListSayurPembeli extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         txtNamaPSayur = (TextView) findViewById(R.id.txtNamaPSayur);
         txtPhone = (TextView) findViewById(R.id.txtPhone);
+        btnCall = (FloatingActionButton) findViewById(R.id.btnCall);
         txtNamaPSayur.setText("Penjual : "+namaPsayur);
         txtPhone.setText("No. HP : "+phone);
 
@@ -70,6 +75,14 @@ public class ListSayurPembeli extends AppCompatActivity {
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
+
+        btnCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String dial = "tel:" + phone;
+                startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(dial)));
+            }
+        });
     }
 
     private void initCollapsingToolbar() {

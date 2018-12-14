@@ -54,6 +54,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
     public static List<String> list_harga = new ArrayList();
     public static List<String> list_key = new ArrayList();
     public static List<String> list_jml = new ArrayList();
+    public static List<String> list_satuan = new ArrayList();
     public static List<String> list_downloadURL = new ArrayList();
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -87,6 +88,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
                 list_key.clear();
                 list_status.clear();
                 list_jml.clear();
+                list_satuan.clear();
 
                 ListSayurPembeli.progressBar.setVisibility(View.VISIBLE);
                 for (DataSnapshot child : dataSnapshot.getChildren()){
@@ -96,6 +98,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
                     String harga = child.child("harga").getValue().toString();
                     String downloadURL = child.child("downloadUrl").getValue().toString();
                     String jml = (String) child.child("jumlahSayur").getValue();
+                    String satuan  = (String) child.child("satuan").getValue();
 
                     if (statusSayur.equals("on")){
                         list_status.add(statusSayur);
@@ -104,6 +107,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
                         list_downloadURL.add(downloadURL);
                         list_harga.add(harga);
                         list_jml.add(jml);
+                        list_satuan.add(satuan);
                     }
 
 
@@ -133,7 +137,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
 
         holder.title.setText(list_nama.get(position).toString());
         holder.count.setText("Rp. "+list_harga.get(position).toString());
-        holder.jmlSayur.setText("Jumlah : "+list_jml.get(position).toString()+" Unit");
+        holder.jmlSayur.setText("Stok : "+list_jml.get(position).toString()+" "+list_satuan.get(position).toString());
 
 
         // loading album cover using Glide library

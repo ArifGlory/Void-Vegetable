@@ -236,7 +236,8 @@ public class RegisterPSayurActivity extends AppCompatActivity {
                             "1",
                             userPhone.getText().toString(),
                             "-5.381911,105.232662",
-                            "off"
+                            "off",
+                            "no"
                             );
 
                     ref = ref.child("psayur");

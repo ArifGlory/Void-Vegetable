@@ -16,6 +16,11 @@
         <item>Bawang Merah</item>
         <item>Bawang Putih</item>
     </string-array>
+    <string-array name="listSatuan">
+        <item>Kg</item>
+        <item>Ikat</item>
+        <item>Kantong</item>
+    </string-array>
     <string name="title_activity_maps">Map</string>
     <string name="bagian">pembeli</string>
     <string-array name="filterPesanan">

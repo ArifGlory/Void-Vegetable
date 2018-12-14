@@ -19,10 +19,12 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,7 +63,9 @@ public class TambahSayurActivity extends AppCompatActivity {
     static final int RC_IMAGE_GALLERY = 2;
     FirebaseUser fbUser;
     DialogInterface.OnClickListener listener;
+    Spinner spSatuan;
     Uri uri,file;
+    String satuan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +85,7 @@ public class TambahSayurActivity extends AppCompatActivity {
         btnUpload = (Button) findViewById(R.id.signUpBtn);
         etJumlah = (EditText) findViewById(R.id.etJumlahSayur);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        spSatuan = (Spinner) findViewById(R.id.sp_satuan);
 
         imgBrowse.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +99,17 @@ public class TambahSayurActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 checkValidation();
+            }
+        });
+        spSatuan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                satuan = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
     }
@@ -180,6 +196,7 @@ public class TambahSayurActivity extends AppCompatActivity {
         if (getNama.equals("") || getNama.length() == 0
                 || getHarga.equals("") || getHarga.length() == 0
                 || getJumlah.equals("") || getJumlah.length() == 0
+                || satuan.equals("") || satuan.length() == 0
                 ) {
 
             customToast("Semua Field harus diiisi harus diisi");
@@ -286,7 +303,9 @@ public class TambahSayurActivity extends AppCompatActivity {
                         key,
                         downloadUrl.toString(),
                         "off",
-                        etJumlah.getText().toString());
+                        etJumlah.getText().toString(),
+                        satuan)
+                        ;
                 ref.child("psayur").child(SharedVariable.userID).child("sayurList").child(key).setValue(sayur);
 
                 etHarga.setText("");

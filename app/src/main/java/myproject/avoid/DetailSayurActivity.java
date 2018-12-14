@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,6 +66,8 @@ public class DetailSayurActivity extends AppCompatActivity {
     Uri uri;
     private Boolean isFabOpen = false;
     DialogInterface.OnClickListener listener;
+    Spinner spSatuan;
+    String satuan;
 
     FloatingActionButton fabSetting,fabEdit,fabDelete;
     private Animation fab_open,fab_close,rotate_forward,rotate_backward;
@@ -97,12 +100,14 @@ public class DetailSayurActivity extends AppCompatActivity {
         btnUpload = (Button) findViewById(R.id.signUpBtn);
         etJumlah = (EditText) findViewById(R.id.etJumlahSayur);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        spSatuan = (Spinner) findViewById(R.id.sp_satuan);
 
         etHarga.setEnabled(false);
         etNama.setEnabled(false);
         btnUpload.setEnabled(false);
         etJumlah.setEnabled(false);
         imgBrowse.setEnabled(false);
+        spSatuan.setEnabled(false);
 
         etNama.setText(namaSayur);
         etHarga.setText(hargaSayur);

@@ -30,9 +30,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.firebase.client.Firebase;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -47,9 +50,9 @@ import Kelas.SharedVariable;
 import Kelas.UserPreference;
 
 public class PenjualSayurActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener , LocationListener {
+        implements NavigationView.OnNavigationItemSelectedListener, LocationListener {
 
- FragmentPenjual fragmentPenjual;
+    FragmentPenjual fragmentPenjual;
     DatabaseReference ref;
     private FirebaseAuth fAuth;
     private FirebaseAuth.AuthStateListener fStateListener;
@@ -65,13 +68,13 @@ public class PenjualSayurActivity extends AppCompatActivity
     double latitude;
     double longitude;
     Double lat;
-    Double lon,userLon,userLat;
+    Double lon, userLon, userLat;
     private LocationManager locationManager;
     private String provider;
     //private LocationRequest mlocationrequest;
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
     private static final long MIN_TIME_BW_UPDATES = 6000;
-    private String statusPsayur,bagian;
+    private String statusPsayur, bagian;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,10 +101,24 @@ public class PenjualSayurActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         View headerView = navigationView.getHeaderView(0);
         TextView txtNamaProfil = (TextView) headerView.findViewById(R.id.txtNama);
+        ImageView imageView = (ImageView) headerView.findViewById(R.id.imageView);
         txtNamaProfil.setText(SharedVariable.nama);
+        if (!SharedVariable.fotoPsayur.equals("no")){
+            Glide.with(getApplicationContext())
+                    .load(SharedVariable.fotoPsayur)
+                    .asBitmap().fitCenter().diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(imageView);
+        }
+        headerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),ProfilPSayurActivity.class);
+                startActivity(intent);
+            }
+        });
 
         fragmentPenjual = new FragmentPenjual();
-        goToFragment(fragmentPenjual,true);
+        goToFragment(fragmentPenjual, true);
 
         locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
@@ -127,7 +144,7 @@ public class PenjualSayurActivity extends AppCompatActivity
         }
 
         getLocation();
-        Toast.makeText(getApplicationContext(),"UserLat : "+userLat+" , UserLon : "+userLon , Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "UserLat : " + userLat + " , UserLon : " + userLon, Toast.LENGTH_LONG).show();
 
         ref.child("psayur").child(SharedVariable.userID).addValueEventListener(new ValueEventListener() {
             @Override
@@ -166,6 +183,16 @@ public class PenjualSayurActivity extends AppCompatActivity
             } else {
                 this.canGetLocation = true;
                 if (isNetworkEnabled) {
+                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        return location;
+                    }
                     locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, (LocationListener) this);
 
                     if (locationManager != null) {

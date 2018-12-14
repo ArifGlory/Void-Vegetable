@@ -13,9 +13,10 @@ public class PSayurModel {
     public String phone;
     public String latlon;
     public String status;
+    public String foto;
 
     public PSayurModel(String uid, String displayName, String token, String last_login, String check, String phone,
-                       String latlon,String status) {
+                       String latlon,String status,String foto) {
         this.uid = uid;
         this.displayName = displayName;
         this.token = token;
@@ -24,6 +25,7 @@ public class PSayurModel {
         this.phone = phone;
         this.latlon = latlon;
         this.status = status;
+        this.foto = foto;
     }
 
     public String getUid() {

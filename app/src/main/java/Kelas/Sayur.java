@@ -11,17 +11,20 @@ public class Sayur {
     public String downloadUrl;
     public String statusSayur;
     public String jumlahSayur;
+    public String satuanSayur;
 
     public Sayur(){
 
     }
 
-    public Sayur(String namaSayur, String harga, String key, String downloadUrl,String statusSayur,String jumlahSayur) {
+    public Sayur(String namaSayur, String harga, String key, String downloadUrl,String statusSayur,String jumlahSayur
+                ,String satuanSayur) {
         this.namaSayur = namaSayur;
         this.harga = harga;
         this.key = key;
         this.downloadUrl = downloadUrl;
         this.statusSayur = statusSayur;
         this.jumlahSayur = jumlahSayur;
+        this.satuanSayur = satuanSayur;
     }
 }
