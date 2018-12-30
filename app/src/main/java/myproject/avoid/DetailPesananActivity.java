@@ -3,6 +3,7 @@ package myproject.avoid;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
+import android.provider.ContactsContract;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.client.Firebase;
 import com.google.firebase.FirebaseApp;
@@ -31,8 +33,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Adapter.AdapterKeranjang;
+import Adapter.AdapterKeranjangPenjual;
 import Adapter.RecycleAdapterDetailPesanan;
 import Kelas.KeranjangTampil;
+import Kelas.Sayur;
+import Kelas.SharedVariable;
 
 public class DetailPesananActivity extends AppCompatActivity {
 
@@ -42,15 +47,16 @@ public class DetailPesananActivity extends AppCompatActivity {
     private FirebaseAuth fAuth;
     private FirebaseAuth.AuthStateListener fStateListener;
     Intent i;
-    public static String keyPembeli,keyOrder,namaPembeli,phone,status;
+    public static String keyPembeli,keyOrder,namaPembeli,phone,status,total;
     public static TextView txtNamaPembeli,txtPhone,txtStatus;
    // RecycleAdapterDetailPesanan adapter;
     Button btnTerima,btnTolak,btnLihatBukti;
     private String urlBukti;
     DialogInterface.OnClickListener listener;
     private List<KeranjangTampil> keranjangTampilList;
+    private List<Sayur> sayurList;
     private String jumlahPesan = "0";
-    AdapterKeranjang adapter;
+    AdapterKeranjangPenjual adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,9 +74,11 @@ public class DetailPesananActivity extends AppCompatActivity {
         keyPembeli = i.getStringExtra("keyPembeli");
         keyOrder = i.getStringExtra("keyOrder");
         status = i.getStringExtra("status");
+        total = i.getStringExtra("total");
 
         keranjangTampilList = new ArrayList<>();
-        adapter = new AdapterKeranjang(DetailPesananActivity.this,keranjangTampilList);
+        sayurList = new ArrayList<>();
+        adapter = new AdapterKeranjangPenjual(DetailPesananActivity.this,keranjangTampilList);
 
 
         Firebase.setAndroidContext(this);
@@ -134,16 +142,49 @@ public class DetailPesananActivity extends AppCompatActivity {
                         String jumlahPesan = child.child("jumlah").getValue().toString();
                         String namaSayur = child.child("namaSayur").getValue().toString();
                         String urlGambar = child.child("urlGambar").getValue().toString();
+                        String idSayur = child.child("idSayur").getValue().toString();
                         String keyOrderDetail  = child.getKey();
 
                         KeranjangTampil keranjangTampil = new KeranjangTampil(namaSayur,
                                 hargaSayur,
                                 urlGambar,
                                 jumlahPesan,
-                                keyOrderDetail);
+                                keyOrderDetail,
+                                idSayur);
                         keranjangTampilList.add(keranjangTampil);
                         adapter.notifyDataSetChanged();
                     }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        //getDataSayur
+        ref.child("psayur").child(SharedVariable.userID).child("sayurList").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                sayurList.clear();
+                for (DataSnapshot child : dataSnapshot.getChildren()){
+                    String key = child.getKey();
+                    String namaSayur = child.child("namaSayur").getValue().toString();
+                    String statusSayur = child.child("statusSayur").getValue().toString();
+                    String harga = child.child("harga").getValue().toString();
+                    String downloadURL = child.child("downloadUrl").getValue().toString();
+                    String jml = (String) child.child("jumlahSayur").getValue();
+                    String satuan  = (String) child.child("satuan").getValue();
+
+                    Sayur sayur = new Sayur(namaSayur,
+                            harga,
+                            key,
+                            downloadURL,
+                            statusSayur,
+                            jml,
+                            satuan);
+                    sayurList.add(sayur);
                 }
             }
 
@@ -169,6 +210,54 @@ public class DetailPesananActivity extends AppCompatActivity {
                             if(which == DialogInterface.BUTTON_POSITIVE){
                                 //status diterima
                                 ref.child("order").child(keyOrder).child("status").setValue("1");
+
+                                //loop untuk mengurangi jumlah stok sayur
+                                for (int i=0;i<keranjangTampilList.size();i++){
+                                    final KeranjangTampil keranjangTampil = keranjangTampilList.get(i);
+
+                                    for (int c=0;c<sayurList.size();c++){
+                                        final Sayur sayur = sayurList.get(c);
+
+                                        if (keranjangTampil.getIdSayur().equals(sayur.key)){
+                                            int stok = Integer.parseInt(sayur.jumlahSayur);
+                                            int jmlBeli = Integer.parseInt(keranjangTampil.getJumlah());
+                                            stok = stok - jmlBeli;
+
+                                            ref.child("psayur").child(SharedVariable.userID).child("sayurList").
+                                                    child(sayur.key).child("jumlahSayur").setValue(String.valueOf(stok));
+
+                                            Toast.makeText(getApplicationContext(),"Stok baru : "+stok,Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+
+                                    /*ref.child("psayur").child(SharedVariable.userID).child("sayurList").addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            for (DataSnapshot child : dataSnapshot.getChildren()){
+                                                String keySayur = child.getKey();
+                                                if (keySayur.equals(keranjangTampil.getIdSayur())){
+                                                    String stok = child.child("jumlahSayur").getValue().toString();
+                                                    int stokSayur = Integer.parseInt(stok);
+                                                    int jmlBeli = Integer.parseInt(keranjangTampil.getJumlah());
+                                                    stokSayur = stokSayur - jmlBeli;
+
+                                                    //ubah stok
+                                                    ref.child("psayur").child(SharedVariable.userID).child("sayurList").
+                                                            child(keySayur).child("jumlahSayur").setValue(String.valueOf(stokSayur));
+
+                                                    Toast.makeText(getApplicationContext(),"Stok baru : "+stokSayur,Toast.LENGTH_SHORT).show();
+                                                }
+
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });*/
+
+                                }
 
                                 Intent i = new Intent(getApplicationContext(),ListPesananPenjual.class);
                                 startActivity(i);

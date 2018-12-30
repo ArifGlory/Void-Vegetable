@@ -105,12 +105,14 @@ public class FragmentKeranjang extends Fragment {
                                 String urlGambar = dataSnapshot.child("downloadUrl").getValue().toString();
                                 String namaSayur = dataSnapshot.child("namaSayur").getValue().toString();
                                 String hargaSayur = dataSnapshot.child("harga").getValue().toString();
+                                String idSayur = dataSnapshot.child("idSayur").getValue().toString();
 
                                 KeranjangTampil keranjangTampil = new KeranjangTampil(namaSayur,
                                         hargaSayur,
                                         urlGambar,
                                         jumlahPesan,
-                                        "qwerty");
+                                        "qwerty",
+                                        idSayur);
                                 keranjangTampilList.add(keranjangTampil);
                                 adapter.notifyDataSetChanged();
                                Toast.makeText(getActivity(),namaSayur,Toast.LENGTH_SHORT).show();

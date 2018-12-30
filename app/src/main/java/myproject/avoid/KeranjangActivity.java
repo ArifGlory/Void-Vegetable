@@ -55,6 +55,7 @@ public class KeranjangActivity extends AppCompatActivity {
     private String waktu;
     Order order;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +88,7 @@ public class KeranjangActivity extends AppCompatActivity {
                 keranjangTampilList.clear();
                 adapter.notifyDataSetChanged();
 
-                for (DataSnapshot child : dataSnapshot.getChildren()){
+                for (final DataSnapshot child : dataSnapshot.getChildren()){
                     String uidPembeli = child.child("uidPembeli").getValue().toString();
 
                     if (uidPembeli.equals(SharedVariable.userID)){
@@ -102,12 +103,15 @@ public class KeranjangActivity extends AppCompatActivity {
                                 String urlGambar = dataSnapshot.child("downloadUrl").getValue().toString();
                                 String namaSayur = dataSnapshot.child("namaSayur").getValue().toString();
                                 String hargaSayur = dataSnapshot.child("harga").getValue().toString();
+                                String keySayur = dataSnapshot.getKey();
+
 
                                 KeranjangTampil keranjangTampil = new KeranjangTampil(namaSayur,
                                         hargaSayur,
                                         urlGambar,
                                         jml,
-                                        "qwerty");
+                                        "qwerty",
+                                        keySayur);
                                 subtotal = Integer.parseInt(jml) * Integer.parseInt(hargaSayur);
                                 total = total + subtotal;
                                 keranjangTampilList.add(keranjangTampil);

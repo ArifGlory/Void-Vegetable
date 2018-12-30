@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -135,8 +136,11 @@ public class ListPesananPenjual extends AppCompatActivity {
                                 uidPenjual);
                         orderList.add(order);
                         keyList.add(key);
-                        adapter.notifyDataSetChanged();
+
                     }
+                    Collections.reverse(orderList);
+                    Collections.reverse(keyList);
+                    adapter.notifyDataSetChanged();
                 }
             }
 

@@ -128,6 +128,8 @@ public class RecycleAdapterListSayur extends RecyclerView.Adapter<RecycleViewHol
        holder.txtHarga.setText("Rp. "+list_harga.get(position).toString());
         holder.txtJml.setText(list_jml.get(position).toString()+" Unit");
 
+
+
         statusSayur = list_status.get(position).toString();
         if (statusSayur.equals("off")){
             holder.toogleSayur.setChecked(false);

@@ -10,13 +10,31 @@ public class KeranjangTampil {
     public String urlGambar;
     public String jumlahPesan;
     public String idOrder;
+    public String idSayur;
 
-    public KeranjangTampil(String namaSayur, String hargaSayur, String urlGambar, String jumlahPesan, String idOrder) {
+    public String getJumlahPesan() {
+        return jumlahPesan;
+    }
+
+    public void setJumlahPesan(String jumlahPesan) {
+        this.jumlahPesan = jumlahPesan;
+    }
+
+    public String getIdSayur() {
+        return idSayur;
+    }
+
+    public void setIdSayur(String idSayur) {
+        this.idSayur = idSayur;
+    }
+
+    public KeranjangTampil(String namaSayur, String hargaSayur, String urlGambar, String jumlahPesan, String idOrder, String idSayur) {
         this.namaSayur = namaSayur;
         this.hargaSayur = hargaSayur;
         this.urlGambar = urlGambar;
         this.jumlahPesan = jumlahPesan;
         this.idOrder = idOrder;
+        this.idSayur = idSayur;
     }
 
     public String getNamaSayur() {

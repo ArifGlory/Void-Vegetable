@@ -1,5 +1,10 @@
 package myproject.avoid;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -104,6 +109,12 @@ public class HistoryPesananActivity extends AppCompatActivity {
 
 
     }
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(getApplicationContext(),BerandaActivity.class);
+        startActivity(i);
+    }
+
 
     public  void customToast(String s){
         LayoutInflater inflater = getLayoutInflater();

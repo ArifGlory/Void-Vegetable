@@ -91,13 +91,15 @@ public class DetailOrderActivity extends AppCompatActivity {
                         String jumlahPesan = child.child("jumlah").getValue().toString();
                         String namaSayur = child.child("namaSayur").getValue().toString();
                         String urlGambar = child.child("urlGambar").getValue().toString();
+                        String idSayur = child.child("idSayur").getValue().toString();
                         String keyOrderDetail  = child.getKey();
 
                         KeranjangTampil keranjangTampil = new KeranjangTampil(namaSayur,
                                 hargaSayur,
                                 urlGambar,
                                 jumlahPesan,
-                                keyOrderDetail);
+                                keyOrderDetail,
+                                idSayur);
                         keranjangTampilList.add(keranjangTampil);
                         adapter.notifyDataSetChanged();
                     }

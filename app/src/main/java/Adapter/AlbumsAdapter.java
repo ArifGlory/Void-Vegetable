@@ -173,15 +173,23 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
 
                     if (SharedVariable.idPenjualAktifCart.equals("off")
                             || SharedVariable.idPenjualAktifCart.equals(ListSayurPembeli.keyPSayur)){
-                        Keranjang keranjang = new Keranjang(fAuth.getCurrentUser().getUid(),
-                                ListSayurPembeli.keyPSayur,
-                                list_key.get(position).toString(),
-                                editText.getText().toString());
-                        String key = ref.child("keranjang").push().getKey();
-                        ref.child("keranjang").child(key).setValue(keranjang);
-                        FragmentKeranjang.status = "1";
-                        SharedVariable.idPenjualAktifCart = ListSayurPembeli.keyPSayur;
-                        Toast.makeText(mContext.getApplicationContext(), "Berhasil masuk ke keranjang", Toast.LENGTH_SHORT).show();
+                        int jml = Integer.parseInt(list_jml.get(position).toString());
+                        int pesanan = Integer.parseInt(editText.getText().toString());
+                        if (pesanan > jml ){
+                            Toast.makeText(mContext.getApplicationContext(), "Stok tidak cukup ", Toast.LENGTH_SHORT).show();
+                        }else {
+                            Keranjang keranjang = new Keranjang(fAuth.getCurrentUser().getUid(),
+                                    ListSayurPembeli.keyPSayur,
+                                    list_key.get(position).toString(),
+                                    editText.getText().toString());
+                            String key = ref.child("keranjang").push().getKey();
+                            ref.child("keranjang").child(key).setValue(keranjang);
+                            FragmentKeranjang.status = "1";
+                            SharedVariable.idPenjualAktifCart = ListSayurPembeli.keyPSayur;
+                            Toast.makeText(mContext.getApplicationContext(), "Berhasil masuk ke keranjang", Toast.LENGTH_SHORT).show();
+
+                        }
+
                     }else {
                         Toast.makeText(mContext.getApplicationContext(), "Tidak bisa melakukan pembelian, mohon selesaikan pembelian anda pada penjual sebelumnya", Toast.LENGTH_SHORT).show();
                     }

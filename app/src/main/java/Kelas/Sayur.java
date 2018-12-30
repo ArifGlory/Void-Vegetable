@@ -11,7 +11,7 @@ public class Sayur {
     public String downloadUrl;
     public String statusSayur;
     public String jumlahSayur;
-    public String satuanSayur;
+    public String satuan;
 
     public Sayur(){
 
@@ -25,6 +25,6 @@ public class Sayur {
         this.downloadUrl = downloadUrl;
         this.statusSayur = statusSayur;
         this.jumlahSayur = jumlahSayur;
-        this.satuanSayur = satuanSayur;
+        this.satuan = satuanSayur;
     }
 }
